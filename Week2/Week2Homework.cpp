@@ -53,7 +53,7 @@ int main() //Declaring the main function.
 		}
 	} while (ans == 'y' || ans == 'Y'); //Breaks out of the do-while loop if the user answers yes to the question.
 
-	cout << "Press any key to exit."; //Program stop. This is so the program doesn't just close instantly.
+	cout << "Press enter to exit."; //Program stop. This is so the program doesn't just close instantly.
 	cin.ignore();
 	cin.get();
 	return 0;
