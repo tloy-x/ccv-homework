@@ -18,7 +18,15 @@ int main() //Declaring the main function.
 		b1 = true; //Initializing the boolean "b1" to be true.
 		cout << "Please enter your annual salary. $";
 		cin >> annualSalary;
-
+		while (cin.fail()) //Catching an input failure in the case of entering something that is not a number.
+		{
+			cin.clear(); //Clears input error
+			cin.ignore(numeric_limits<streamsize>::max(), '\n'); //Ignores the rest of the current line up to '\n'.
+			cout << "Invalid response. Only numbers are allowed." << endl;
+			cout << "Please enter your annual salary. $";
+			cin >> annualSalary;
+		}
+		
 		cout.setf(ios::fixed); //Setting precision for values with decimal points. Lifted from page 55 of Savitch.
 		cout.setf(ios::showpoint);
 		cout.precision(2);
@@ -53,7 +61,7 @@ int main() //Declaring the main function.
 		}
 	} while (ans == 'y' || ans == 'Y'); //Breaks out of the do-while loop if the user answers yes to the question.
 
-	cout << "Press enter to exit."; //Program stop. This is so the program doesn't just close instantly.
+	cout << "Press RETURN to exit."; //Program stop. This is so the program doesn't just close instantly.
 	cin.ignore();
 	cin.get();
 	return 0;
