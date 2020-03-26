@@ -1,0 +1,5 @@
+1
+2
+3
+a
+//This file shows the error catching if the values entered are not numbers.
