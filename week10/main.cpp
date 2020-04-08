@@ -5,11 +5,12 @@
 #include <string> //string
 #include <sstream> //istringstream
 
-using namespace std;
+//Excluding the using declaration so I can get used to using std:: instead.
+//using namespace std; 
 
-vector<double> scores;
+std::vector<double> scores;
 
-void averager(vector<double> &outvec); //Gets data from the temp.dat file and outputs thm t a vector.
+void averager(std::vector<double> &outvec); //Gets data from the temp.dat file and outputs thm t a vector.
 
 void usage(char* name[]); //Usage output.
 
@@ -19,22 +20,22 @@ int main(int argc, char* argv[])
     if (argc < 2 || argc > 3) //Catching too many or oo few arguments.
         usage(argv);
 
-    if (string(argv[1]) == "-h") //Case for the help flag.
+    if (std::string(argv[1]) == "-h") //Case for the help flag.
         usage(argv);
     
     bool verbose = false;
 
     if (argv[2])
     {
-        if (string(argv[2]) == "-v") //Case for verbose flag.
+        if (std::string(argv[2]) == "-v") //Case for verbose flag.
         {
-            cout << endl; //Adding newline before output.
+            std::cout << '\n'; //Adding newline before output.
             verbose = true; //If set, verbose = true.
         }
     }
 
-    ifstream inFile; //Opening input filestream.
-    ofstream temp; //Creating output filestream.
+    std::ifstream inFile; //Opening input filestream.
+    std::ofstream temp; //Creating output filestream.
 
     inFile.open(argv[1]); //Opening input filestream based on the filename passed via arguments.
     temp.open("temp.dat"); //Oepening temp.dat file.
@@ -85,11 +86,11 @@ int main(int argc, char* argv[])
 
     remove("temp.dat"); //Deleting the temp.dat.
 
-    ifstream input; //Declaring new clean input stream.
-    input.open(string(argv[1])); //Opens same file as original input stream.
+    std::ifstream input; //Declaring new clean input stream.
+    input.open(std::string(argv[1])); //Opens same file as original input stream.
 
-    ofstream outFile; //Declaring output file stream.
-    outFile.open("average_" + string(argv[1])); //Crearting new output file. 
+    std::ofstream outFile; //Declaring output file stream.
+    outFile.open("average_" + std::string(argv[1])); //Crearting new output file. 
 
     count = 0;
     int i = 0;
@@ -101,7 +102,7 @@ int main(int argc, char* argv[])
         outFile << next2; //and inserts them into outFile.
 
         if (verbose == true) //Checking for verbosity.
-            cout << next2;
+            std::cout << next2;
 
         if (next2 == ' ') //Couting spaces.
             count++;
@@ -111,17 +112,17 @@ int main(int argc, char* argv[])
             outFile << scores[i];
 
             if (verbose == true) //Checking for verbosity.
-                cout << scores[i];
+                std::cout << scores[i];
             
             i++; //Counting line number for easy index addressing.
 
             while (next2 != '\n') //Ignoring the rest of the line up to newline
                 input.get(next2);
 
-            outFile << endl; //Ending outFile line.
+            outFile << std::endl; //Ending outFile line.
 
             if (verbose == true) //Checking for verbosity.
-                cout << endl;
+                std::cout << std::endl;
                 
             count = 0; //Resetting count.
         }
@@ -130,10 +131,10 @@ int main(int argc, char* argv[])
     return 0;
 }
 
-void averager(vector<double> &outvec)
+void averager(std::vector<double> &outvec)
 {
-    ifstream temp2;
-    vector<int> tempvec;
+    std::ifstream temp2;
+    std::vector<int> tempvec;
     double average;
 
     temp2.open("temp.dat");
@@ -160,10 +161,10 @@ void averager(vector<double> &outvec)
     //     }
     // }
 
-    string line;
+    std::string line;
     while (getline(temp2, line)) //Getting lines up to '\n' from the input stream.
     {
-        istringstream temp2(line); //Parsing out integers.
+        std::istringstream temp2(line); //Parsing out integers.
         int temp;
         while ( temp2 >> temp)
         {
@@ -182,9 +183,9 @@ void averager(vector<double> &outvec)
 
 void usage(char* name[]) //Had some fun making a usage message so this seemed like a real command line tool.
 {
-    cout << "Usage: " << string(name[0]) << " [FILENAME] <option>" << endl << endl
-         << "  -v       Toggle verbose output." << endl
-         << "  -h       Display this message." << endl;
+    std::cout << "Usage: " << std::string(name[0]) << " [FILENAME] <option>" << std::endl << std::endl
+         << "  -v       Toggle verbose output." << '\n'
+         << "  -h       Display this message." << '\n';
 
     exit(1); //End program.
     return;
